@@ -10,7 +10,7 @@ import { IoClose } from "react-icons/io5";
 import LegBaseSettings from "./LegBaseSettings";
 
 const initialLegSettings: ILegSettings = {
-  id : 1,
+  id : -1, // to avoid conflict with added legs, which start from 0
   Segment: "Options",
   PositionType: "PositionType.Sell",
   Lots: 0,

@@ -26,7 +26,7 @@ const LegBaseSettings = ({
     <div className="rounded-lg p-5 flex justify-center gap-x-2 flex-wrap md:flex-nowrap">
       <NumberInput
         fieldName="Total lot"
-        id="Lots"
+        id={`total-lot-${formFields.id}`}
         min={0}
         defaultValue={formFields.Lots}
         register={register("Lots", {
@@ -36,7 +36,7 @@ const LegBaseSettings = ({
         })}
       />
       <SelectInput
-        id="PositionType"
+        id={`PositionType-${formFields.id}`}
         fieldName="Position"
         defaultValue={{
           value: formFields.PositionType,
@@ -53,7 +53,7 @@ const LegBaseSettings = ({
       {initialLegSettings.Segment === "Options" && (
         <>
           <SelectInput
-            id="OptionType"
+            id={`OptionType-${formFields.id}`}
             fieldName="Option Type"
             defaultValue={{ value: "LegType.CE", label: "Call" }}
             options={[
@@ -65,7 +65,7 @@ const LegBaseSettings = ({
             })}
           />
           <SelectInput
-            id="ExpiryType"
+            id={`ExpiryType-${formFields.id}`}
             fieldName="Expiry"
             defaultValue={formatOptionType(formFields.ExpiryKind)}
             options={[
@@ -77,7 +77,7 @@ const LegBaseSettings = ({
             })}
           />
           <SelectInput
-            id="EntryType"
+            id={`EntryType-${formFields.id}`}
             fieldName="Select Strike Criteria"
             defaultValue={{
               value: "EntryType.EntryByStrikeType",
@@ -106,7 +106,7 @@ const LegBaseSettings = ({
       )}
       {formFields.EntryType === "EntryType.EntryByStrikeType" && (
         <SelectInput
-          id="StrikeType"
+          id={`StrikeType-${formFields.id}`}
           fieldName="Strike Type"
           defaultValue={{
             value: "StrikeType.ATM",
@@ -124,8 +124,8 @@ const LegBaseSettings = ({
       {formFields.EntryType === "EntryType.EntryByPremiumRange" && (
         <>
           <NumberInput
+            id={`LowerRange-${formFields.id}`}
             fieldName="Lower Range"
-            id="LowerRange"
             defaultValue={50}
             register={register("StrikeParameter.Lower", {
               // required: true,
@@ -133,8 +133,8 @@ const LegBaseSettings = ({
             })}
           />
           <NumberInput
+            id={`UpperRange-${formFields.id}`}
             fieldName="Upper Range"
-            id="UpperRange"
             defaultValue={200}
             register={register("StrikeParameter.Upper", {
               // required: true,
@@ -145,8 +145,8 @@ const LegBaseSettings = ({
       )}
       {formFields.EntryType === "EntryType.EntryByPremium" && (
         <NumberInput
+          id={`Premium-${formFields.id}`}
           fieldName="Premium"
-          id="Premium"
           defaultValue={50}
           register={register("StrikeParameter", {
             valueAsNumber: true,
@@ -158,7 +158,7 @@ const LegBaseSettings = ({
           <div className="flex items-center gap-x-2">
             <p className="min-w-max">{"[ ATM Strike"}</p>
             <SelectInput
-              id="StraddleWidthType"
+              id={`StraddleWidthType-${formFields.id}`}
               defaultValue={{
                 value: "Plus",
                 label: "+",
@@ -173,7 +173,7 @@ const LegBaseSettings = ({
             />
             <p className="min-w-max">(</p>
             <NumberInput
-              id="StraddleWidth"
+              id={`StraddleWidth-${formFields.id}`}
               className="w-24"
               defaultValue={0.5}
               register={register("StrikeParameter.Multiplier", {
