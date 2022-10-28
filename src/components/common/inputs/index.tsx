@@ -30,11 +30,11 @@ export const NumberInput = ({
   register,
   ...attributes
 }: InputProps) => (
-  <div className="w-full flex-col">
+  <div className="flex-col w-full">
     {fieldName && (
       <label
         htmlFor={id}
-        className="block min-w-max pb-2 px-1 text-sm font-semibold text-gray-800"
+        className="block px-1 pb-2 text-sm font-semibold text-gray-800 min-w-max"
       >
         {fieldName} {required && <span className="text-red-500">*</span>}
       </label>
@@ -44,11 +44,12 @@ export const NumberInput = ({
       type="number"
       defaultValue={defaultValue}
       className={classNames(
-        "py-1.5 px-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent w-16",
+        "py-1.5 px-3 rounded-2xl border border-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent w-24 text-sm" ,
         className
       )}
       {...attributes}
       {...register}
+      disabled={attributes.isDisabled}
     />
     {error && (
       <div className="flex items-center justify-between pt-1 text-red-400 rounded-xl">
@@ -66,6 +67,7 @@ export const SelectInput = ({
   defaultValue,
   className,
   register,
+  highlighted,
   error,
   ...attributes
 }: InputProps & { defaultValue: IOption }) => {
@@ -75,7 +77,7 @@ export const SelectInput = ({
       {fieldName && (
         <label
           htmlFor={id}
-          className="block min-w-max pb-2 px-1 text-sm font-semibold text-gray-800"
+          className="block px-1 pb-2 text-sm font-semibold text-gray-800 min-w-max"
         >
           {fieldName} {required && <span className="text-red-500">*</span>}
         </label>
@@ -91,7 +93,15 @@ export const SelectInput = ({
             border: "1px solid #e2e8f0",
             minWidth: "120px",
             borderRadius: "1rem",
+            width: attributes.width,
+            backgroundColor: highlighted ? attributes.isDisabled ? "#8caae6" : "#3b82f6" : "#fff",
+            fontSize: "0.9rem",
           }),
+          singleValue: (provided) => ({
+            ...provided,
+            color: highlighted ? "#fff" : "#1a202c",
+          }),
+          
         }}
         {...attributes}
         onChange={(e: any) => {

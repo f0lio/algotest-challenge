@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Head>
-        <title>AlgoTest</title>
+        <title>AlgoTest - Leg Builder</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

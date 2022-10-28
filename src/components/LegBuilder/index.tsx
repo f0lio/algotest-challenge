@@ -3,14 +3,14 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import React from "react";
 import SelectInput, { NumberInput } from "@components/common/inputs";
 import { formatOptionType } from "utils/format-options";
-import { ILegSettings } from "interfaces";
+import { ILegSettings } from "@global/types";
 import Button from "@components/common/buttons";
-import { strikeTypes } from "interfaces/types";
+import { strikeTypes } from "@global/types";
 import { IoClose } from "react-icons/io5";
 import LegBaseSettings from "./LegBaseSettings";
 
 const initialLegSettings: ILegSettings = {
-  id : -1, // to avoid conflict with added legs, which start from 0
+  id: -1, // to avoid conflict with added legs, which start from 0
   Segment: "Options",
   PositionType: "PositionType.Sell",
   Lots: 0,
@@ -51,7 +51,7 @@ const LegBuilder = (
   {
     onSubmit,
     onCancel,
-  } : {
+  }: {
     onSubmit: (data: ILegSettings) => void;
     onCancel: () => void;
   }
@@ -70,17 +70,16 @@ const LegBuilder = (
   });
 
   const formFields = watch();
-  
+
   console.log(formFields);
 
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      className="bg-gray-400/5 rounded-lg p-5 flex justify-center flex-col items-center"
+      className="flex flex-col items-center justify-center p-5 rounded-lg bg-gray-400/5"
     >
- 
-      <div className="flex sm:flex-row flex-col justify-center gap-3 sm:items-center text-gray-700">
-        <p className="min-w-fit text-md font-semibold">Select segments</p>
+      <div className="flex flex-col justify-center gap-3 text-gray-700 sm:flex-row sm:items-center">
+        <p className="font-semibold min-w-fit text-md">Select segments</p>
         <div className="min-w-fit">
           <Button
             id="Futures"

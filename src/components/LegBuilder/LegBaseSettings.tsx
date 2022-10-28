@@ -1,6 +1,6 @@
 import SelectInput, { NumberInput } from "@components/common/inputs";
-import { ILegSettings } from "@interfaces/index";
-import { strikeTypes } from "@interfaces/types";
+import { ILegSettings } from "@global/types";
+import { strikeTypes } from "@global/types";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { formatOptionType } from "utils/format-options";
@@ -23,7 +23,7 @@ const LegBaseSettings = ({
   const formFields = watch();
 
   return (
-    <div className="rounded-lg p-5 flex justify-center gap-x-2 flex-wrap md:flex-nowrap">
+    <div className="flex flex-wrap justify-center p-5 rounded-lg gap-x-2 md:flex-nowrap">
       <NumberInput
         fieldName="Total lot"
         id={`total-lot-${formFields.id}`}
@@ -102,87 +102,88 @@ const LegBaseSettings = ({
               required: true,
             })}
           />
-        </>
-      )}
-      {formFields.EntryType === "EntryType.EntryByStrikeType" && (
-        <SelectInput
-          id={`StrikeType-${formFields.id}`}
-          fieldName="Strike Type"
-          defaultValue={{
-            value: "StrikeType.ATM",
-            label: "ATM",
-          }}
-          options={strikeTypes.map((type) => ({
-            value: type,
-            label: type,
-          }))}
-          register={register("StrikeParameter", {
-            required: true,
-          })}
-        />
-      )}
-      {formFields.EntryType === "EntryType.EntryByPremiumRange" && (
-        <>
-          <NumberInput
-            id={`LowerRange-${formFields.id}`}
-            fieldName="Lower Range"
-            defaultValue={50}
-            register={register("StrikeParameter.Lower", {
-              // required: true,
-              valueAsNumber: true,
-            })}
-          />
-          <NumberInput
-            id={`UpperRange-${formFields.id}`}
-            fieldName="Upper Range"
-            defaultValue={200}
-            register={register("StrikeParameter.Upper", {
-              // required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </>
-      )}
-      {formFields.EntryType === "EntryType.EntryByPremium" && (
-        <NumberInput
-          id={`Premium-${formFields.id}`}
-          fieldName="Premium"
-          defaultValue={50}
-          register={register("StrikeParameter", {
-            valueAsNumber: true,
-          })}
-        />
-      )}
-      {formFields.EntryType === "EntryType.EntryByStraddleWidth" && (
-        <div className="flex items-end">
-          <div className="flex items-center gap-x-2">
-            <p className="min-w-max">{"[ ATM Strike"}</p>
+
+          {formFields.EntryType === "EntryType.EntryByStrikeType" && (
             <SelectInput
-              id={`StraddleWidthType-${formFields.id}`}
+              id={`StrikeType-${formFields.id}`}
+              fieldName="Strike Type"
               defaultValue={{
-                value: "Plus",
-                label: "+",
+                value: "StrikeType.ATM",
+                label: "ATM",
               }}
-              options={[
-                { value: "Minus", label: "-" },
-                { value: "Plus", label: "+" },
-              ]}
-              register={register("StrikeParameter.Adjustment", {
-                valueAsNumber: true,
+              options={strikeTypes.map((type) => ({
+                value: type,
+                label: type,
+              }))}
+              register={register("StrikeParameter", {
+                required: true,
               })}
             />
-            <p className="min-w-max">(</p>
+          )}
+          {formFields.EntryType === "EntryType.EntryByPremiumRange" && (
+            <>
+              <NumberInput
+                id={`LowerRange-${formFields.id}`}
+                fieldName="Lower Range"
+                defaultValue={50}
+                register={register("StrikeParameter.Lower", {
+                  // required: true,
+                  valueAsNumber: true,
+                })}
+              />
+              <NumberInput
+                id={`UpperRange-${formFields.id}`}
+                fieldName="Upper Range"
+                defaultValue={200}
+                register={register("StrikeParameter.Upper", {
+                  // required: true,
+                  valueAsNumber: true,
+                })}
+              />
+            </>
+          )}
+          {formFields.EntryType === "EntryType.EntryByPremium" && (
             <NumberInput
-              id={`StraddleWidth-${formFields.id}`}
-              className="w-24"
-              defaultValue={0.5}
-              register={register("StrikeParameter.Multiplier", {
+              id={`Premium-${formFields.id}`}
+              fieldName="Premium"
+              defaultValue={50}
+              register={register("StrikeParameter", {
                 valueAsNumber: true,
               })}
             />
-            <p className="min-w-max">{") x ATM Straddle Price )]"}</p>
-          </div>
-        </div>
+          )}
+          {formFields.EntryType === "EntryType.EntryByStraddleWidth" && (
+            <div className="flex items-end">
+              <div className="flex items-center gap-x-2">
+                <p className="min-w-max">{"[ ATM Strike"}</p>
+                <SelectInput
+                  id={`StraddleWidthType-${formFields.id}`}
+                  defaultValue={{
+                    value: "Plus",
+                    label: "+",
+                  }}
+                  options={[
+                    { value: "Minus", label: "-" },
+                    { value: "Plus", label: "+" },
+                  ]}
+                  register={register("StrikeParameter.Adjustment", {
+                    valueAsNumber: true,
+                  })}
+                />
+                <p className="min-w-max">(</p>
+                <NumberInput
+                  id={`StraddleWidth-${formFields.id}`}
+                  className="w-24"
+                  defaultValue={0.5}
+                  register={register("StrikeParameter.Multiplier", {
+                    valueAsNumber: true,
+                  })}
+                />
+                <p className="min-w-max">{") x ATM Straddle Price )]"}</p>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
